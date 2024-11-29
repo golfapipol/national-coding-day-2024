@@ -39,3 +39,35 @@ test("getProductPrice when product not found", () => {
         expect(error.message).toEqual("Product not found")
     }
 })
+
+test("getProductPrice when product found stub", () => {
+    const product: Product = {
+        productName: "Laptop",
+        productId: "LAPTOP-123",
+        price: 999.99
+    }
+    const stub = {
+        search: (productName: string, productId: string) => product
+    }
+    const actual = getProductPrice(stub, "Laptop", "LAPTOP-123")  
+    expect(actual).toEqual(product.price)
+})
+
+test("getProductPrice when product found fake", () => {
+    // fake version
+    const product: Product = {
+        productName: "Laptop",
+        productId: "LAPTOP-123",
+        price: 999.99
+    }
+    const stub = {
+        search: (productName: string, productId: string) => {
+            if (productName == "Laptop" && productId == "LAPTOP-123") {
+                return product;
+            }
+            return null
+        }
+    }
+    const actual = getProductPrice(stub, "Laptop", "LAPTOP-123")  
+    expect(actual).toEqual(product.price)
+})
