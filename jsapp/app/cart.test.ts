@@ -1,4 +1,4 @@
-import { subtotalPrice } from "./cart";
+import { subtotalPrice,discountedPrice } from "./cart";
 
 /* console.log(subtotalPrice(999.99, 3).toFixed(2) === "2999.97") */
 /* console.log(subtotalPrice(999.99, 2).toFixed(2) === "1999.98") */
@@ -49,6 +49,15 @@ test("should calculate subtotal price correctly", () => {
 // Challenge: write your own test with you own style for the following functions:
 // 1. test discountedPrice function
 // 2. products.ts getProductPrice function
+test("discountedPrice should calculate discount correctly", () => {
+    const expectedDiscountAmount = 90;
+    const price = 100;
+    const discount = 10; // percent
+
+    const discountAmount = discountedPrice(price, discount);
+
+    expect(discountAmount).toEqual(expectedDiscountAmount);
+});
 
 // Optional Challenge: write tests for the following functions:
 // - test totalPrice function
