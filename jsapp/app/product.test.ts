@@ -20,11 +20,22 @@ function test(title: string, callback: () => void) {
 
 test("getProductPrice didn't give name and id should throw error", () => {
     const dummy = {
-        search: (productName: string, productId: string) => null
+        search: null
     }
     try {
         getProductPrice(dummy, "","")  
     } catch (error) {
         expect(error.message).toEqual("Product name and product id are required")
+    }
+})
+
+test("getProductPrice when product not found", () => {
+    const stub = {
+        search: (productName: string, productId: string) => null
+    }
+    try {
+        getProductPrice(stub, "Laptop", "LAPTOP-123")  
+    } catch (error) {
+        expect(error.message).toEqual("Product not found")
     }
 })
